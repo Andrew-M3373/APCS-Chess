@@ -9,6 +9,7 @@ public class PlayGame {
 		PrintBoard.printBoard();
 		PrintBoard.board[0][0] = "  ";
 		PrintBoard.printBoard();
+		Input.input();
 		
 	}
 	
