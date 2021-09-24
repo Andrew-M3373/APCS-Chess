@@ -1,11 +1,9 @@
-import java.io.PrintWriter;
-
 public class PrintBoard {
 
 	
-	static final String ANSI_WHITE = "\u001B[47m";
-	static final String ANSI_RESET = "\u001B[0m";
-	static final String ANSI_TEXT = "\u001B[31m";
+	private static final String ANSI_WHITE = "\u001B[47m";
+	private static final String ANSI_RESET = "\u001B[0m";
+	private static final String ANSI_TEXT = "\u001B[31m";
 	
 	//static char [][] board = {{'\u2656','\u2658','\u2657','\u2655','\u2654','\u2657','\u2658','\u2656'}, {97,98,99,100,101,102,103}};
 	static String [][] board = {{
@@ -45,15 +43,14 @@ public class PrintBoard {
 		ANSI_TEXT+"wb"+ANSI_RESET,
 		ANSI_TEXT+"wn"+ANSI_RESET,
 		ANSI_TEXT+"wr"+ANSI_RESET}};
-	static PrintWriter printWriter = new PrintWriter(System.out,true);
 	
-	static int row = 9;
+	private static int row = 9;
 	
 	
 	
 	public static void printBoard() {
 		
-		printWriter.println("\n\n\n     a    b    c    d    e    f    g    h\n  +----+----+----+----+----+----+----+----+");
+		System.out.println("\n\n\n\n\n\n\n\n     a    b    c    d    e    f    g    h\n  +----+----+----+----+----+----+----+----+");
 		for (int i=0; i < board.length; i++) {
 			if (i%2==0) {
 				System.out.printf(axisLabels() 
@@ -98,11 +95,45 @@ public class PrintBoard {
 			
 		}
 	}
-	public static int axisLabels() {
+	private static int axisLabels() {
 		row --;
 		if (row == 0) {
 			row = 8;
 		}
 		return row;
+	}
+	
+	public static boolean stillPlaying() {
+		int counter = 0;
+		for (int col = 0; col < board.length; col++) {
+			for (int row = 0; row < board[0].length; row++) {
+				if (board[col][row].contains("bk") || board[col][row].contains("wk")) {
+					counter ++;
+				}
+			}
+		}
+		if (counter != 2) {
+			return false;
+		}
+		return true;
+	}
+	
+	public static void gameOver() {
+		boolean blackWon = false;
+		for (int col = 0; col < board.length; col++) {
+			for (int row = 0; row < board[0].length; row++) {
+				if (board[col][row].contains("bk")) {
+					blackWon = true; 
+				}
+			}
+		}
+		if (blackWon) {
+			System.out.println("\n\nCongrats, " + Welcome.players[1] + "!! You won the match."
+					+ "\nPlay again soon!");
+		}
+		else {
+			System.out.println("\n\nCongrats, " + Welcome.players[0] + "!! You won the match."
+					+ "\nPlay again soon!");
+		}
 	}
 }

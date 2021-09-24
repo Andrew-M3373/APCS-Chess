@@ -1,5 +1,3 @@
-import java.io.PrintWriter;
-
 public class PlayGame {
 
 	
@@ -7,15 +5,19 @@ public class PlayGame {
 	public static void main(String[] args) {
 		
 		Welcome.welcomeUser();
-		PrintBoard.printBoard();
-//		PrintBoard.board[0][0] = "  ";
 //		PrintBoard.printBoard();
-		Input.input();
-		
+//		PrintBoard.board[0][3] = "  ";
+//		PrintBoard.printBoard();
+		do {
+			PrintBoard.printBoard();
+			MovePiece.white();
+			if (PrintBoard.stillPlaying()) {
+				PrintBoard.printBoard();
+				MovePiece.black();
+			}
+		}
+		while (PrintBoard.stillPlaying());
+		PrintBoard.printBoard();
+		PrintBoard.gameOver();
 	}
-	
-	
-		
-		
-	}
-
+}
