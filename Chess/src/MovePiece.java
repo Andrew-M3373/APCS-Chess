@@ -1,8 +1,10 @@
+import java.util.ArrayList;
 
 public class MovePiece {
 
 	private static int[] toCoordinates;
 	private static int[] fromCoordinates;
+	private static int[][] pawnMoved = {{0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0}};
 	private static final String ANSI_WHITE = "\u001B[47m";
 	private static final String ANSI_RESET = "\u001B[0m";
 	private static final String ANSI_TEXT = "\u001B[31m";
@@ -45,7 +47,14 @@ public class MovePiece {
 		}
 		while (!moveToChecks(toCoordinates[0], toCoordinates[1]));
 	}
+	
+	public static void createArrayList() {
+		ArrayList<Pieces> pieces = new ArrayList<Pieces>();
+	}
+	
 	private static boolean moveToChecks(int row, int col) {
+		
+		for (int i = 0; i < pieces.size())
 		
 		switch (PrintBoard.board[row][col]) {
 		case ANSI_TEXT+"wp"+ANSI_RESET: 
