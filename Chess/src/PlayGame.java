@@ -8,6 +8,7 @@ public class PlayGame {
 //		PrintBoard.printBoard();
 //		PrintBoard.board[0][3] = "  ";
 //		PrintBoard.printBoard();
+		MovePiece.fillPiecesArray();
 		do {
 			PrintBoard.printBoard();
 			MovePiece.white();

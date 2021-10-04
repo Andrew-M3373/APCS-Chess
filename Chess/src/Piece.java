@@ -1,12 +1,12 @@
 
-public class Pieces {
+public class Piece {
 
 	private String piece;
 	private int[] location;
 	private int timesMoved;
 	
 	
-	public Pieces(String p, int[] l, int m) {
+	public Piece(String p, int[] l, int m) {
 		piece = p;
 		timesMoved = m;
 		location = l;
