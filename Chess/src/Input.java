@@ -30,7 +30,7 @@ public class Input {
 	public static boolean invalidInput(String i) {
 		
 		if (i.length() != 2 || (i.charAt(0) > 104 || i.charAt(0) < 97) || (i.charAt(1) > 56 || i.charAt(1) < 49)) {
-			System.out.println("Please only enter a 2-character pair of coordinates in the form letter and a number.\n"
+			System.out.println("Please only enter a 2-character pair of coordinates in the form letter and a number in the correct range.\n"
 					+ "Enter your coordinates again.");
 			return false;
 		}
