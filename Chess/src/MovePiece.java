@@ -4,7 +4,6 @@ public class MovePiece {
 
 	private static int[] toCoordinates;
 	private static int[] fromCoordinates;
-	private static int[][] pawnMoved = {{0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0}};
 	private static final String ANSI_WHITE = "\u001B[47m";
 	private static final String ANSI_RESET = "\u001B[0m";
 	private static final String ANSI_TEXT = "\u001B[31m";
