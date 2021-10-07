@@ -54,7 +54,7 @@ public class MovePiece {
 	}
 	
 	public static void fillPiecesArray() {
-		pieces.add(new Piece(ANSI_TEXT+"wp"+ANSI_RESET,new int[] {6,0},1));
+		pieces.add(new Piece(ANSI_TEXT+"wp"+ANSI_RESET,new int[] {6,0},0));
 		pieces.add(new Piece(ANSI_TEXT+"wp"+ANSI_RESET,new int[] {6,1},0));
 		pieces.add(new Piece(ANSI_TEXT+"wp"+ANSI_RESET,new int[] {6,2},0));
 		pieces.add(new Piece(ANSI_TEXT+"wp"+ANSI_RESET,new int[] {6,3},0));
