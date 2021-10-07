@@ -23,6 +23,7 @@ public class Welcome {
 		
 		System.out.println("\nHello, " + players[0] + " and " + players[1] + "! When entering coordinates, enter a 2-character pair of coordinates "
 				+ "\nin the form of a letter and a number."
+//				+ "\nNOTE: If you enter an incorrect piece location, enter the letter \"e\" into any input field."
 				+ "\nPress enter when you are ready to play.");
 		userInput.nextLine();
 	}

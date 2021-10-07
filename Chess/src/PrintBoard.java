@@ -133,11 +133,11 @@ public class PrintBoard {
 			}
 		}
 		if (blackWon) {
-			System.out.println("\n\nCongrats, " + Welcome.players[1] + "!! You won the match."
+			System.out.println("\n\nCheckmate!\nCongrats, " + Welcome.players[1] + "!! You won the match."
 					+ "\nPlay again soon!");
 		}
 		else {
-			System.out.println("\n\nCongrats, " + Welcome.players[0] + "!! You won the match."
+			System.out.println("\n\nCheckmate!\\nCongrats, " + Welcome.players[0] + "!! You won the match."
 					+ "\nPlay again soon!");
 		}
 	}

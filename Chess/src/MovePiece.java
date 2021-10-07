@@ -202,7 +202,89 @@ public class MovePiece {
 				return true;
 			}
 			//break;
-		case ANSI_TEXT+"br"+ANSI_RESET:
+		case ANSI_TEXT+"br"+ANSI_RESET: case ANSI_TEXT+"wr"+ANSI_RESET:
+			if (toCoordinates[0] != fromCoordinates[0]) {
+				if (toCoordinates[1] != fromCoordinates[1]) {
+					System.out.println("\nYour rook must only move horizontally OR vertically.");
+					return true;
+				}
+				if (toCoordinates[0] - fromCoordinates[0] > 0) {
+					for (int i = 1; i <= toCoordinates[0] - fromCoordinates[0]; i++) {
+						if (!PrintBoard.board[toCoordinates[0]+i][toCoordinates[1]].contains("  ")) {
+							System.out.println("\nYour rook cannot jump other pieces.");
+							return true;
+						}
+					}
+				}
+				else if(toCoordinates[0] - fromCoordinates[0] < 0) {
+					for (int i = 2; i <= Math.abs(toCoordinates[0] - fromCoordinates[0]); i++) {
+						if (!PrintBoard.board[toCoordinates[0]-i][toCoordinates[1]].contains("  ")) {
+							System.out.println("\nYour rook cannot jump other pieces.");
+							return true;
+						}
+					}
+				}
+				else if (PrintBoard.board[fromCoordinates[0]][fromCoordinates[1]].contains("br")) {
+					if (PrintBoard.board[toCoordinates[0]][toCoordinates[1]].substring(5,6).contains("b")) {
+						System.out.println("\nYou may not move to a space currently occupied by a black piece.");
+						return true;
+					}
+				}
+				else if (PrintBoard.board[fromCoordinates[0]][fromCoordinates[1]].contains("wr")) {
+					if (PrintBoard.board[toCoordinates[0]][toCoordinates[1]].substring(5,6).contains("w")) {
+						System.out.println("\nYou may not move to a space currently occupied by a white piece.");
+						return true;
+					}
+				}
+				else {
+					return false;
+				}
+			}
+		
+		
+		
+			else if (toCoordinates[1] != fromCoordinates[1]) {
+				if (toCoordinates[0] != fromCoordinates[0]) {
+					System.out.println("\nYour rook must only move horizontally OR vertically.");
+					return true;
+				}
+
+				if (toCoordinates[1] - fromCoordinates[1] > 0) {
+					for (int i = 1; i <= toCoordinates[1] - fromCoordinates[1]; i++) {
+						if (!PrintBoard.board[toCoordinates[0]][toCoordinates[1]+i].contains("  ")) {
+							System.out.println("\nYour rook cannot jump other pieces.");
+							return true;
+						}
+					}
+				}
+				else if(toCoordinates[1] - fromCoordinates[1] < 0) {
+					for (int i = 2; i <= Math.abs(toCoordinates[1] - fromCoordinates[1]); i++) {
+						if (!PrintBoard.board[toCoordinates[0]][toCoordinates[1]-i].contains("  ")) {
+							System.out.println("\nYour rook cannot jump other pieces.");
+							return true;
+						}
+					}
+				}
+				else if (PrintBoard.board[fromCoordinates[0]][fromCoordinates[1]].contains("br")) {
+					if (PrintBoard.board[toCoordinates[0]][toCoordinates[1]].substring(5,6).contains("b")) {
+						System.out.println("\nYou may not move to a space currently occupied by a black piece.");
+						return true;
+					}
+				}
+				else if (PrintBoard.board[fromCoordinates[0]][fromCoordinates[1]].contains("wr")) {
+					if (PrintBoard.board[toCoordinates[0]][toCoordinates[1]].substring(5,6).contains("w")) {
+						System.out.println("\nYou may not move to a space currently occupied by a white piece.");
+						return true;
+					}
+				}
+				else {
+					return false;
+				}
+			}
+			else {
+				System.out.println("\nPlease enter a valid move.");
+				return true;
+			}
 		}
 		
 		return true;
