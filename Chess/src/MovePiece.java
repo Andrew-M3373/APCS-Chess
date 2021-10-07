@@ -183,6 +183,7 @@ public class MovePiece {
 				return true;
 			}
 			//break;
+		case ANSI_TEXT+"br"+ANSI_RESET:
 		}
 		
 		return true;
