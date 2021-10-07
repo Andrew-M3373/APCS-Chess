@@ -50,6 +50,11 @@ public class PrintBoard {
 	
 	public static void printBoard() {
 		
+//		System.out.println(board[0][0].length());
+//		for (int i = 0; i < board[0][0].length(); i++) {
+//			System.out.println(board[0][0].substring(i,i+1));
+//		}
+		
 		System.out.println("\n\n\n\n\n\n\n\n     a    b    c    d    e    f    g    h\n  +----+----+----+----+----+----+----+----+");
 		for (int i=0; i < board.length; i++) {
 			if (i%2==0) {
