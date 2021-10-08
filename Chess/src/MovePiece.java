@@ -23,7 +23,7 @@ public class MovePiece {
 			System.out.println("Enter the space to move your " + PrintBoard.board[fromCoordinates[0]][fromCoordinates[1]] + " to.");
 			toCoordinates = Input.input();
 		}
-		while (moveToChecks(fromCoordinates[0], fromCoordinates[1]));
+		while (moveToChecks(fromCoordinates[0], fromCoordinates[1],toCoordinates[0],toCoordinates[1]));
 		
 		pieces.get(index).setLocation(toCoordinates);
 		pieces.get(index).setTimesMoved(pieces.get(index).getTimesMoved() + 1);
@@ -45,7 +45,7 @@ public class MovePiece {
 			System.out.println("Enter the space to move your " + PrintBoard.board[fromCoordinates[0]][fromCoordinates[1]] + " to.");
 			toCoordinates = Input.input();
 		}
-		while (moveToChecks(fromCoordinates[0],fromCoordinates[1]));
+		while (moveToChecks(fromCoordinates[0],fromCoordinates[1],toCoordinates[0],toCoordinates[1]));
 		
 		pieces.get(index).setLocation(toCoordinates);
 		pieces.get(index).setTimesMoved(pieces.get(index).getTimesMoved() + 1);
@@ -94,35 +94,35 @@ public class MovePiece {
 //		}
 	}
 	
-	private static boolean moveToChecks(int row, int col) {
+	private static boolean moveToChecks(int fromRow, int fromCol, int toRow, int toCol) {
 		
 //		System.out.println(row + " " + col);
 //		System.out.println(PrintBoard.board[row][col]);
-//		System.out.println(toCoordinates[0] + " " + toCoordinates[1]);
+//		System.out.println(toRow + " " + toCol);
 		index = 0;
 		for (int i = 0; i < pieces.size(); i ++) {
-			if (pieces.get(i).getLocation()[0] == fromCoordinates[0] && pieces.get(i).getLocation()[1] == fromCoordinates[1]) {
+			if (pieces.get(i).getLocation()[0] == fromRow && pieces.get(i).getLocation()[1] == fromCol) {
 				index = i;
 			}
 		}
 		
-		switch (PrintBoard.board[row][col]) {
+		switch (PrintBoard.board[fromRow][fromCol]) {
 		case ANSI_TEXT+"wp"+ANSI_RESET: 
 //				System.out.println("First works.");
-//				System.out.println("to0:" + toCoordinates[0] + "to1:" + toCoordinates[1] + "from0:" + fromCoordinates[0] + "from1:" + fromCoordinates[1]);
+//				System.out.println("to0:" + toRow + "to1:" + toCol + "from0:" + fromRow + "from1:" + fromCol);
 			
 			// First move forward 2
-			if (toCoordinates[0] == fromCoordinates[0] - 2 && toCoordinates[1] == fromCoordinates[1]) {
+			if (toRow == fromRow - 2 && toCol == fromCol) {
 				if (pieces.get(index).getTimesMoved() > 0) {	
 					System.out.println("\nYour pawn cannot move two spaces after the first move.");
 					return true;
 				}
 				else {
-					if (!PrintBoard.board[toCoordinates[0]][toCoordinates[1]].contains("  ")) {
+					if (!PrintBoard.board[toRow][toCol].contains("  ")) {
 						System.out.println("\nYour pawn cannot move forward to an occupied space.");
 						return true;
 					}
-					else if(!PrintBoard.board[toCoordinates[0]+1][toCoordinates[1]].contains("  ")) {
+					else if(!PrintBoard.board[toRow+1][toCol].contains("  ")) {
 						System.out.println("\nYour pawn cannot jump pieces.");
 						return true;
 					}
@@ -131,12 +131,12 @@ public class MovePiece {
 			}
 		
 			// Move diagonally
-			else if (toCoordinates[0] == fromCoordinates[0] - 1 && (toCoordinates[1] == fromCoordinates[1] - 1 || toCoordinates[1] == fromCoordinates[1] + 1)) {
-				if (PrintBoard.board[toCoordinates[0]][toCoordinates[1]].contains("  ")) {
+			else if (toRow == fromRow - 1 && (toCol == fromCol - 1 || toCol == fromCol + 1)) {
+				if (PrintBoard.board[toRow][toCol].contains("  ")) {
 					System.out.println("\nYour pawn can only move diagonally when taking a black chess piece.");
 					return true;
 				}
-				else if (!PrintBoard.board[toCoordinates[0]][toCoordinates[1]].substring(5,6).contains("b")) {
+				else if (!PrintBoard.board[toRow][toCol].substring(5,6).contains("b")) {
 					System.out.println("You cannot move to a location already occupied by a white piece.");
 					return true;
 				}
@@ -144,8 +144,8 @@ public class MovePiece {
 			}
 			
 			// Normal move
-			else if(toCoordinates[0] == fromCoordinates[0] - 1 && toCoordinates[1] == fromCoordinates[1]) {
-				if (!PrintBoard.board[toCoordinates[0]][toCoordinates[1]].contains("  ")) {
+			else if(toRow == fromRow - 1 && toCol == fromCol) {
+				if (!PrintBoard.board[toRow][toCol].contains("  ")) {
 					System.out.println("Your pawn cannot take a piece directly ahead.");
 					return true;
 				}
@@ -158,17 +158,17 @@ public class MovePiece {
 			//break;
 		case ANSI_TEXT+"bp"+ANSI_RESET:
 			// First move forward 2
-			if (toCoordinates[0] == fromCoordinates[0] + 2 && toCoordinates[1] == fromCoordinates[1]) {
+			if (toRow == fromRow + 2 && toCol == fromCol) {
 				if (pieces.get(index).getTimesMoved() > 0) {	
 					System.out.println("\nYour pawn cannot move two spaces after the first move.");
 					return true;
 				}
 				else {
-					if (!PrintBoard.board[toCoordinates[0]][toCoordinates[1]].contains("  ")) {
+					if (!PrintBoard.board[toRow][toCol].contains("  ")) {
 						System.out.println("\nYour pawn cannot move forward to an occupied space.");
 						return true;
 					}
-					else if(!PrintBoard.board[toCoordinates[0]-1][toCoordinates[1]].contains("  ")) {
+					else if(!PrintBoard.board[toRow-1][toCol].contains("  ")) {
 						System.out.println("\nYour pawn cannot jump pieces.");
 						return true;
 					}
@@ -177,12 +177,12 @@ public class MovePiece {
 			}
 		
 			// Move diagonally
-			else if (toCoordinates[0] == fromCoordinates[0] + 1 && (toCoordinates[1] == fromCoordinates[1] - 1 || toCoordinates[1] == fromCoordinates[1] + 1)) {
-				if (PrintBoard.board[toCoordinates[0]][toCoordinates[1]].contains("  ")) {
+			else if (toRow == fromRow + 1 && (toCol == fromCol - 1 || toCol == fromCol + 1)) {
+				if (PrintBoard.board[toRow][toCol].contains("  ")) {
 					System.out.println("\nYour pawn can only move diagonally when taking a white chess piece.");
 					return true;
 				}
-				else if (!PrintBoard.board[toCoordinates[0]][toCoordinates[1]].substring(5,6).contains("w")) {
+				else if (!PrintBoard.board[toRow][toCol].substring(5,6).contains("w")) {
 					System.out.println("You cannot move to a location already occupied by a black piece.");
 					return true;
 				}
@@ -190,8 +190,8 @@ public class MovePiece {
 			}
 			
 			// Normal move
-			else if(toCoordinates[0] == fromCoordinates[0] + 1 && toCoordinates[1] == fromCoordinates[1]) {
-				if (!PrintBoard.board[toCoordinates[0]][toCoordinates[1]].contains("  ")) {
+			else if(toRow == fromRow + 1 && toCol == fromCol) {
+				if (!PrintBoard.board[toRow][toCol].contains("  ")) {
 					System.out.println("Your pawn cannot move forward to an occupied space.");
 					return true;
 				}
@@ -203,35 +203,35 @@ public class MovePiece {
 			}
 			//break;
 		case ANSI_TEXT+"br"+ANSI_RESET: case ANSI_TEXT+"wr"+ANSI_RESET:
-			if (toCoordinates[0] != fromCoordinates[0]) {
-				if (toCoordinates[1] != fromCoordinates[1]) {
+			if (toRow != fromRow) {
+				if (toCol != fromCol) {
 					System.out.println("\nYour rook must only move horizontally OR vertically.");
 					return true;
 				}
-				if (toCoordinates[0] - fromCoordinates[0] > 0) {
-					for (int i = 1; i <= toCoordinates[0] - fromCoordinates[0]; i++) {
-						if (!PrintBoard.board[toCoordinates[0]+i][toCoordinates[1]].contains("  ")) {
+				if (toRow - fromRow > 0) {
+					for (int i = 1; i <= toRow - fromRow; i++) {
+						if (!PrintBoard.board[toRow+i][toCol].contains("  ")) {
 							System.out.println("\nYour rook cannot jump other pieces.");
 							return true;
 						}
 					}
 				}
-				else if(toCoordinates[0] - fromCoordinates[0] < 0) {
-					for (int i = 2; i <= Math.abs(toCoordinates[0] - fromCoordinates[0]); i++) {
-						if (!PrintBoard.board[toCoordinates[0]-i][toCoordinates[1]].contains("  ")) {
+				else if(toRow - fromRow < 0) {
+					for (int i = 2; i <= Math.abs(toRow - fromRow); i++) {
+						if (!PrintBoard.board[toRow-i][toCol].contains("  ")) {
 							System.out.println("\nYour rook cannot jump other pieces.");
 							return true;
 						}
 					}
 				}
-				else if (PrintBoard.board[fromCoordinates[0]][fromCoordinates[1]].contains("br")) {
-					if (PrintBoard.board[toCoordinates[0]][toCoordinates[1]].substring(5,6).contains("b")) {
+				else if (PrintBoard.board[fromRow][fromCol].contains("br")) {
+					if (PrintBoard.board[toRow][toCol].substring(5,6).contains("b")) {
 						System.out.println("\nYou may not move to a space currently occupied by a black piece.");
 						return true;
 					}
 				}
-				else if (PrintBoard.board[fromCoordinates[0]][fromCoordinates[1]].contains("wr")) {
-					if (PrintBoard.board[toCoordinates[0]][toCoordinates[1]].substring(5,6).contains("w")) {
+				else if (PrintBoard.board[fromRow][fromCol].contains("wr")) {
+					if (PrintBoard.board[toRow][toCol].substring(5,6).contains("w")) {
 						System.out.println("\nYou may not move to a space currently occupied by a white piece.");
 						return true;
 					}
@@ -243,36 +243,36 @@ public class MovePiece {
 		
 		
 		
-			else if (toCoordinates[1] != fromCoordinates[1]) {
-				if (toCoordinates[0] != fromCoordinates[0]) {
+			else if (toCol != fromCol) {
+				if (toRow != fromRow) {
 					System.out.println("\nYour rook must only move horizontally OR vertically.");
 					return true;
 				}
 
-				if (toCoordinates[1] - fromCoordinates[1] > 0) {
-					for (int i = 1; i <= toCoordinates[1] - fromCoordinates[1]; i++) {
-						if (!PrintBoard.board[toCoordinates[0]][toCoordinates[1]+i].contains("  ")) {
+				if (toCol - fromCol > 0) {
+					for (int i = 1; i <= toCol - fromCol; i++) {
+						if (!PrintBoard.board[toRow][toCol+i].contains("  ")) {
 							System.out.println("\nYour rook cannot jump other pieces.");
 							return true;
 						}
 					}
 				}
-				else if(toCoordinates[1] - fromCoordinates[1] < 0) {
-					for (int i = 2; i <= Math.abs(toCoordinates[1] - fromCoordinates[1]); i++) {
-						if (!PrintBoard.board[toCoordinates[0]][toCoordinates[1]-i].contains("  ")) {
+				else if(toCol - fromCol < 0) {
+					for (int i = 2; i <= Math.abs(toCol - fromCol); i++) {
+						if (!PrintBoard.board[toRow][toCol-i].contains("  ")) {
 							System.out.println("\nYour rook cannot jump other pieces.");
 							return true;
 						}
 					}
 				}
-				else if (PrintBoard.board[fromCoordinates[0]][fromCoordinates[1]].contains("br")) {
-					if (PrintBoard.board[toCoordinates[0]][toCoordinates[1]].substring(5,6).contains("b")) {
+				else if (PrintBoard.board[fromRow][fromCol].contains("br")) {
+					if (PrintBoard.board[toRow][toCol].substring(5,6).contains("b")) {
 						System.out.println("\nYou may not move to a space currently occupied by a black piece.");
 						return true;
 					}
 				}
-				else if (PrintBoard.board[fromCoordinates[0]][fromCoordinates[1]].contains("wr")) {
-					if (PrintBoard.board[toCoordinates[0]][toCoordinates[1]].substring(5,6).contains("w")) {
+				else if (PrintBoard.board[fromRow][fromCol].contains("wr")) {
+					if (PrintBoard.board[toRow][toCol].substring(5,6).contains("w")) {
 						System.out.println("\nYou may not move to a space currently occupied by a white piece.");
 						return true;
 					}
