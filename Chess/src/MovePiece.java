@@ -302,6 +302,8 @@ public class MovePiece {
 				return true;
 			}
 		}
-		return true;
+		// return true to disallow other moves
+		// return false to allow all moves not listed
+		return false;
 	}
 }
