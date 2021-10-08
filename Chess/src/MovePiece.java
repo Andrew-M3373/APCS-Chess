@@ -203,93 +203,105 @@ public class MovePiece {
 			}
 			//break;
 		case ANSI_TEXT+"br"+ANSI_RESET: case ANSI_TEXT+"wr"+ANSI_RESET:
-			if (toRow != fromRow) {
-				if (toCol != fromCol) {
-					System.out.println("\nYour rook must only move horizontally OR vertically.");
-					return true;
-				}
-				if (toRow - fromRow > 0) {
-					for (int i = 1; i <= toRow - fromRow; i++) {
-						if (!PrintBoard.board[toRow+i][toCol].contains("  ")) {
-							System.out.println("\nYour rook cannot jump other pieces.");
+			
+			if (toRow != fromRow && toCol == fromCol) {
+				// Piece moved vertically
+				if (toRow > fromRow) {
+					// Moving down
+					for (int i = fromRow + 1; i < toRow; i++) {
+						if (!PrintBoard.board[i][fromCol].contains("  ")) {
+							System.out.println("\nRooks cannot jump other pieces.");
 							return true;
 						}
 					}
 				}
-				else if(toRow - fromRow < 0) {
-					for (int i = 2; i <= Math.abs(toRow - fromRow); i++) {
-						if (!PrintBoard.board[toRow-i][toCol].contains("  ")) {
-							System.out.println("\nYour rook cannot jump other pieces.");
+				else if (toRow < fromRow) {
+					// Moving Up
+					for (int i = fromRow - 1; i > toRow; i--) {
+						if (!PrintBoard.board[i][fromCol].contains("  ")) {
+							System.out.println("\nRooks cannot jump other pieces.");
 							return true;
 						}
 					}
 				}
-				else if (PrintBoard.board[fromRow][fromCol].contains("br")) {
-					if (PrintBoard.board[toRow][toCol].substring(5,6).contains("b")) {
-						System.out.println("\nYou may not move to a space currently occupied by a black piece.");
+				// Move to Location Checks
+				if (PrintBoard.board[toRow][toCol].contains("w")) {
+					//if (pieces.get(index).getPiece().substring(5,6).contains("w")) {
+					if (PrintBoard.board[fromRow][fromCol].substring(5,6).contains("w")) {
+						System.out.println("\nYour rook cannot move to a space currently occupied by another white piece.");
 						return true;
 					}
+					else {
+						return false;
+					}
 				}
-				else if (PrintBoard.board[fromRow][fromCol].contains("wr")) {
-					if (PrintBoard.board[toRow][toCol].substring(5,6).contains("w")) {
-						System.out.println("\nYou may not move to a space currently occupied by a white piece.");
+				if (!PrintBoard.board[toRow][toCol].contains("  ") && !PrintBoard.board[toRow][toCol].contains("w")) {
+					if (PrintBoard.board[fromRow][fromCol].substring(5,6).contains("b")) {
+						System.out.println("\nYour rook cannot move to a space currently occupied by another black piece.");
 						return true;
+					}
+					else {
+						return false;
 					}
 				}
 				else {
 					return false;
 				}
 			}
-		
-		
-		
-			else if (toCol != fromCol) {
-				if (toRow != fromRow) {
-					System.out.println("\nYour rook must only move horizontally OR vertically.");
-					return true;
-				}
-
-				if (toCol - fromCol > 0) {
-					for (int i = 1; i <= toCol - fromCol; i++) {
-						if (!PrintBoard.board[toRow][toCol+i].contains("  ")) {
-							System.out.println("\nYour rook cannot jump other pieces.");
+			else if (toRow == fromRow && toCol != fromCol) {
+				// Piece moved horizontally 
+				if (toCol > fromCol) {
+					// Moving right
+					for (int i = fromCol + 1; i < toCol; i++) {
+						if (!PrintBoard.board[fromRow][i].contains("  ")) {
+							System.out.println("\nRooks cannot jump other pieces.");
 							return true;
 						}
 					}
 				}
-				else if(toCol - fromCol < 0) {
-					for (int i = 2; i <= Math.abs(toCol - fromCol); i++) {
-						if (!PrintBoard.board[toRow][toCol-i].contains("  ")) {
-							System.out.println("\nYour rook cannot jump other pieces.");
+				else if (toCol < fromCol) {
+					// Moving left
+					for (int i = fromCol - 1; i > toCol; i--) {
+						if (!PrintBoard.board[fromRow][i].contains("  ")) {
+							System.out.println("\nRooks cannot jump other pieces.");
 							return true;
 						}
 					}
 				}
-				else if (PrintBoard.board[fromRow][fromCol].contains("br")) {
-					if (PrintBoard.board[toRow][toCol].substring(5,6).contains("b")) {
-						System.out.println("\nYou may not move to a space currently occupied by a black piece.");
+				// Move to Location Checks
+				if (PrintBoard.board[toRow][toCol].contains("w")) {
+					//if (pieces.get(index).getPiece().substring(5,6).contains("w")) {
+					if (PrintBoard.board[fromRow][fromCol].substring(5,6).contains("w")) {
+						System.out.println("\nYour rook cannot move to a space currently occupied by another white piece.");
 						return true;
 					}
+					else {
+						return false;
+					}
 				}
-				else if (PrintBoard.board[fromRow][fromCol].contains("wr")) {
-					if (PrintBoard.board[toRow][toCol].substring(5,6).contains("w")) {
-						System.out.println("\nYou may not move to a space currently occupied by a white piece.");
+				if (!PrintBoard.board[toRow][toCol].contains("  ") && !PrintBoard.board[toRow][toCol].contains("w")) {
+					if (PrintBoard.board[fromRow][fromCol].substring(5,6).contains("b")) {
+						System.out.println("\nYour rook cannot move to a space currently occupied by another black piece.");
 						return true;
+					}
+					else {
+						return false;
 					}
 				}
 				else {
 					return false;
 				}
+			}
+			else if (toRow != fromRow && toCol != fromCol) {
+				// Piece moved both directions
+				System.out.println("\nYour rook must only move horizontally OR vertically.");
+				return true;
 			}
 			else {
-				System.out.println("\nPlease enter a valid move.");
+				System.out.println("\nEnter a valid move.");
 				return true;
 			}
 		}
-		
 		return true;
 	}
-	
-	
-	
 }
