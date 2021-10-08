@@ -21,6 +21,10 @@ public class Welcome {
 		}
 		players[1] = players[1].substring(0, 1).toUpperCase() + players[1].substring(1);
 		
+		if (players[0].equals(players[1])) {
+			players[1] += " (2)";
+		}
+		
 		System.out.println("\nHello, " + players[0] + " and " + players[1] + "! When entering coordinates, enter a 2-character pair of coordinates "
 				+ "\nin the form of a letter and a number."
 //				+ "\nNOTE: If you enter an incorrect piece location, enter the letter \"e\" into any input field."
